@@ -94,7 +94,15 @@ public  class StartTranferLocal {
         return mMakeAction.createAction(String.valueOf(Height));
     }
 
-
+    public BaseActionBean getPledgeSignData(long Height,long lockHeight){
+        final long pledgeCoin=Long.valueOf(String.valueOf(sumCoinList(this.coinLis)));
+        this.outList=new ArrayList<>();
+        this.outList.add(new OutBean(pledgeCoin,mAccountBean.getAddressNoPrefix()));
+        //根据coin数量计算锁定高度
+//        long lockHeight=(30*(int)Math.floor(pledgeCoin/Long.valueOf(BASE_NUMBER)))+Long.valueOf(String.valueOf(Height));
+        MakeAction mMakeAction = new MakeAction(mAccountBean,TYPE_1_FOR_TRANSFER,coinLis,outList,lockHeight);
+        return mMakeAction.createAction(String.valueOf(Height));
+    }
     /**
      * 合并零钱或拆额零钱
      * @param excreteCoin

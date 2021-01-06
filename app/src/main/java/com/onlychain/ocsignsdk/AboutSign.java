@@ -39,7 +39,7 @@ public class AboutSign {
 
         //————————————————————————————————————————————————————————————————————————————————————————————————————————————
         //初始化IP配置
-        String ip="http://39.98.135.66:9082";
+        String ip="http://39.98.135.61:9082";
         ApiConfig.init(ip);
 
         //模拟一个最新高度
@@ -62,7 +62,7 @@ public class AboutSign {
         };
 
         //导入账户
-        AccountBean mAccountBean=WalletUtils.createAccount(OcMath.hexStringToByteArray("ea23e889d590a443831a785a398ce74179f09dece2fe5bfda41f795c50240c62"));
+        AccountBean mAccountBean=WalletUtils.createAccount(OcMath.hexStringToByteArray("e123e889d590a443831a785a398ce74179f09dece2fe5bfda41f795c50240c62"));
         StartTranferLocal mStartTranferLocal=  new StartTranferLocal(mAccountBean);
 
         //TODO 生成单笔转账交易签名
@@ -81,7 +81,7 @@ public class AboutSign {
         System.out.println("多笔转账："+moreTrans.getCommitData());
 
         //TODO 单笔或多笔零钱质押签名
-        BaseActionBean mPledge = mStartTranferLocal.inputCoin(coinPurse).getPledgeSignData(height);
+        BaseActionBean mPledge = mStartTranferLocal.inputCoin(coinPurse).getPledgeSignData(1,1);
         System.out.println("单笔或多笔零钱质押："+mPledge.getCommitData());
 
         //TODO 单笔或多笔零钱拆额与合并签名

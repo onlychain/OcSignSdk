@@ -26,6 +26,6 @@ public class ApiSignTools {
 
 
         //服务端:提取json中公钥、整json内容以及header中的sign对其验签
-        System.out.println(mBaseActionBean.checkApiSign(mAccountBean.getPublicKeyBin(),jsonMsg,"30450221008fe7f0f7bb55da842522ba91565065eae37c0bf3b06b402b129c34b288d8084402202247716b7cb03545eb455ef36c7c4070db905250615a9a4b975d49f5dadc2441"));
+//        System.out.println(mBaseActionBean.checkApiSign(mAccountBean.getPublicKeyBin(),jsonMsg,"30450221008fe7f0f7bb55da842522ba91565065eae37c0bf3b06b402b129c34b288d8084402202247716b7cb03545eb455ef36c7c4070db905250615a9a4b975d49f5dadc2441"));
     }
 }

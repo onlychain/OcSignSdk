@@ -83,7 +83,7 @@ public class HexConvertJson {
             voutObj.setValue(OcMath.toBigIntNoPrefix(valueHex).toString());
             bodyStartIndex=bodyStartIndex+valueHex.length();
             String addressStr=actionStr.substring(bodyStartIndex,bodyStartIndex+54);
-            voutObj.setAddress(addressStr.split("001976a914")[1].split("88ac")[0]);
+            voutObj.setAddress(addressStr.substring(10,40+10));
             bodyStartIndex=bodyStartIndex+addressStr.length();
 
             voutList.add(voutObj);

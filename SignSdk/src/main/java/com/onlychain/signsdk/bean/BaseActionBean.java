@@ -27,19 +27,36 @@ public class BaseActionBean {
     }
 
     /**
-     * 验证自定义消息
+     * 验证自定义消息,兼容特殊字符验证
      * @param publicKeyBin
      * @param message
      * @param sigStr
      * @return
      */
-    /*public boolean checkApiSign(byte[] publicKeyBin,String message,String sigStr){
+    public boolean checkApiSign(byte[] publicKeyBin,String message,String sigStr){
         if (Secp256k1.verify(PublicKey.parse(publicKeyBin), Hash.sha256(Hash.sha256(message.getBytes())), Signature.parse(OcMath.hexStringToByteArray(sigStr))))
             return true;
         else
             return false;
-    }*/
+    }
 
+    /**
+     * 生成自定义消息签名，兼容特殊字符生成
+     * @param privateKeyBin
+     * @param message
+     * @return
+     */
+    public String makeApiSign(byte[] privateKeyBin,String message){
+        return OcMath.toHexStringNoPrefix(Secp256k1.sign(privateKeyBin,Hash.sha256(Hash.sha256(message.getBytes()))).serialize());
+    }
+
+    /**
+     * 验证OC原生签名
+     * @param publicKeyBin
+     * @param message
+     * @param sigStr
+     * @return
+     */
     public boolean checkSign(byte[] publicKeyBin,String message,String sigStr){
         if (Secp256k1.verify(PublicKey.parse(publicKeyBin), Hash.sha256(Hash.sha256(OcMath.hexStringToByteArray(message))), Signature.parse(OcMath.hexStringToByteArray(sigStr))))
             return true;
@@ -47,9 +64,8 @@ public class BaseActionBean {
             return false;
     }
 
-
     /**
-     * 使用私钥将对应公钥与自定义消息进行加签
+     * 生成OC原生签名
      * @param privateKeyBin
      * @param message
      * @return
@@ -57,6 +73,7 @@ public class BaseActionBean {
     public String makeSign(byte[] privateKeyBin,String message){
         return OcMath.toHexStringNoPrefix(Secp256k1.sign(privateKeyBin,Hash.sha256(Hash.sha256(OcMath.hexStringToByteArray(message)))).serialize());
     }
+
 
     public String getCommitData() {
         return message+sigStr;

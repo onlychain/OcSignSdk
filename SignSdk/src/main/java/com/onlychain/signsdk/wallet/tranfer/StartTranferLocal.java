@@ -93,7 +93,10 @@ public  class StartTranferLocal {
         MakeAction mMakeAction = new MakeAction(mAccountBean,TYPE_1_FOR_TRANSFER,coinLis,outList,lockHeight);
         return mMakeAction.createAction(String.valueOf(Height));
     }
-
+    /**
+     * 获取质押裸交易数据且指定解锁高度
+     * @return
+     */
     public BaseActionBean getPledgeSignData(long Height,long lockHeight){
         final long pledgeCoin=Long.valueOf(String.valueOf(sumCoinList(this.coinLis)));
         this.outList=new ArrayList<>();

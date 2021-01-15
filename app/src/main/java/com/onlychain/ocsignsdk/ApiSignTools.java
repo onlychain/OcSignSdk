@@ -12,20 +12,20 @@ import com.onlychain.signsdk.utils.WalletUtils;
  */
 public class ApiSignTools {
     public static void main(String[] args) {
-        //根据确定的私钥生成账户
-        final AccountBean mAccountBean= WalletUtils.createAccount(OcMath.hexStringToByteArray("1a23e889d590a443831a785a398ce74179f09dece2fe5bfda41f795c50240c62"));
-        //对消息进行加签和验签
-        BaseActionBean mBaseActionBean=new BaseActionBean();
+        String pri="c7c0e51106b3a63a9ccf547c1f391493e13a12950c7d25b6ecbcc8bff112d9ab";
+        AccountBean mAccountBean= WalletUtils.createAccount(OcMath.hexStringToByteArray(pri));
 
-        //移动端:对带有公钥的json数据加签,将签名结果加入请求header中
-        String jsonMsgX="{\\\"msg\\\":{\\\"publicKey\\\":\\\"0355c48844bb6392dbd251167c92904eabbbc1982b39dc7ebcb2141063f0281e1f\\\",\\\"title\\\":\\\"下方标题\\\",\\\"content\\\":\\\"这是内容\\\"}}";
-        String jsonMsg="ismessage";
-        System.out.println(mAccountBean.getPrivateKey());
-        System.out.println(mBaseActionBean.makeSign(mAccountBean.getPrivateKeyBin(),jsonMsg));
+        //OC原生消息签名,消息仅支持16进制(考虑IOS等前端兼容问题)
+        String body="0123456789abcdef";
+        String  signAsStr=new BaseActionBean().makeSign(mAccountBean.getPrivateKeyBin(),body);
+        boolean s=new BaseActionBean().checkSign(OcMath.hexStringToByteArray(mAccountBean.getPublicKey()),body,signAsStr);
+        System.out.println(s);
 
 
-
-        //服务端:提取json中公钥、整json内容以及header中的sign对其验签
-//        System.out.println(mBaseActionBean.checkApiSign(mAccountBean.getPublicKeyBin(),jsonMsg,"30450221008fe7f0f7bb55da842522ba91565065eae37c0bf3b06b402b129c34b288d8084402202247716b7cb03545eb455ef36c7c4070db905250615a9a4b975d49f5dadc2441"));
+        //自定义消息签名
+        String body2="我是自定义消息";
+        String  signAsStr2=new BaseActionBean().makeApiSign(mAccountBean.getPrivateKeyBin(),body2);
+        boolean s2=new BaseActionBean().checkApiSign(OcMath.hexStringToByteArray(mAccountBean.getPublicKey()),body2,signAsStr2);
+        System.out.println(s2);
     }
 }
